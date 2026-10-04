@@ -1,0 +1,249 @@
+{% extends "base.html" %}
+
+{% block title %}Dataset Explorer{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section style="margin-bottom: 2.5rem;">
+  <div class="chapter-badge">Corpus Inspection &bull; Master Dataset</div>
+  <h1 class="hero-headline" style="font-size: 2.6rem; margin-bottom: 0.5rem;">
+    Explore the Marathi News Dataset
+  </h1>
+  <p class="hero-subhead" style="max-width: 720px;">
+    Comprehensive distribution and category exploration of the 14,123 verified Marathi news headlines consolidated from authentic regional journalism sources.
+  </p>
+</section>
+
+<!-- Dataset Profile Card (Audit Metrics) -->
+<section class="metric-strip-card" style="margin-bottom: 2.5rem;">
+  <div class="metric-strip-grid" style="grid-template-columns: repeat(5, 1fr);">
+    <div class="metric-strip-item">
+      <div class="metric-strip-value">{{ "{:,}".format(stats.total_records) }}</div>
+      <div class="metric-strip-label">Total Records</div>
+      <div class="metric-strip-sub">Verified Corpus Volume</div>
+    </div>
+    <div class="metric-strip-item">
+      <div class="metric-strip-value">{{ "{:,}".format(stats.train_records) }}</div>
+      <div class="metric-strip-label">Training Records</div>
+      <div class="metric-strip-sub">80% Stratified Split</div>
+    </div>
+    <div class="metric-strip-item">
+      <div class="metric-strip-value">{{ "{:,}".format(stats.test_records) }}</div>
+      <div class="metric-strip-label">Testing Records</div>
+      <div class="metric-strip-sub">20% Held-out Evaluation</div>
+    </div>
+    <div class="metric-strip-item">
+      <div class="metric-strip-value">0</div>
+      <div class="metric-strip-label">Missing / Duplicates</div>
+      <div class="metric-strip-sub">Zero Data Corruption</div>
+    </div>
+    <div class="metric-strip-item">
+      <div class="metric-strip-value">{{ stats.total_categories }}</div>
+      <div class="metric-strip-label">Categories</div>
+      <div class="metric-strip-sub">Discrete Target Classes</div>
+    </div>
+  </div>
+</section>
+
+<!-- Category Distribution Chart (High-Contrast Bars) -->
+<section class="metric-strip-card" style="padding: 2rem; margin-bottom: 2.5rem;">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+    <h2 style="font-size:1.35rem; font-weight:900; color:var(--primary-deep);">
+      Category Class Distribution
+    </h2>
+    <span class="chapter-badge" style="margin:0;">14,123 Total</span>
+  </div>
+  <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1.75rem;">
+    Visual representation of verified record frequencies and corpus share across all five target categories.
+  </p>
+
+  <div style="display:flex; flex-direction:column; gap:1rem;">
+    <!-- Technology & Science -->
+    <div class="contrast-bar-row">
+      <div class="contrast-bar-meta">
+        <span style="color:var(--cat-tech);">Technology & Science</span>
+        <span>6,301 records (44.62%)</span>
+      </div>
+      <div class="contrast-bar-track">
+        <div class="contrast-bar-fill fill-tech" style="width: 44.62%;"></div>
+      </div>
+    </div>
+
+    <!-- Politics -->
+    <div class="contrast-bar-row">
+      <div class="contrast-bar-meta">
+        <span style="color:var(--cat-politics);">Politics</span>
+        <span>4,029 records (28.53%)</span>
+      </div>
+      <div class="contrast-bar-track">
+        <div class="contrast-bar-fill fill-politics" style="width: 28.53%;"></div>
+      </div>
+    </div>
+
+    <!-- Sports -->
+    <div class="contrast-bar-row">
+      <div class="contrast-bar-meta">
+        <span style="color:var(--cat-sports);">Sports</span>
+        <span>1,679 records (11.89%)</span>
+      </div>
+      <div class="contrast-bar-track">
+        <div class="contrast-bar-fill fill-sports" style="width: 11.89%;"></div>
+      </div>
+    </div>
+
+    <!-- Entertainment -->
+    <div class="contrast-bar-row">
+      <div class="contrast-bar-meta">
+        <span style="color:var(--cat-entertainment);">Entertainment</span>
+        <span>1,418 records (10.04%)</span>
+      </div>
+      <div class="contrast-bar-track">
+        <div class="contrast-bar-fill fill-entertainment" style="width: 10.04%;"></div>
+      </div>
+    </div>
+
+    <!-- Business -->
+    <div class="contrast-bar-row">
+      <div class="contrast-bar-meta">
+        <span style="color:var(--cat-business);">Business</span>
+        <span>696 records (4.93%)</span>
+      </div>
+      <div class="contrast-bar-track">
+        <div class="contrast-bar-fill fill-business" style="width: 4.93%;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed Data Breakdown Table -->
+  <div class="table-responsive" style="margin-top:2.25rem;">
+    <table class="prob-table dataset-summary-table">
+      <thead>
+        <tr>
+          <th style="min-width: 200px; text-align: left;">Category</th>
+          <th style="min-width: 120px; text-align: right;">Total Records</th>
+          <th style="min-width: 130px; text-align: right;">Corpus Share (%)</th>
+          <th style="min-width: 150px; text-align: right;">Training Split (80%)</th>
+          <th style="min-width: 150px; text-align: right;">Testing Split (20%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:var(--cat-tech);">Technology & Science</strong></td>
+          <td style="text-align: right; font-family: var(--font-mono);">6,301</td>
+          <td style="text-align: right; font-family: var(--font-mono);">44.62%</td>
+          <td style="text-align: right; font-family: var(--font-mono);">5,041</td>
+          <td style="text-align: right; font-family: var(--font-mono);">1,260</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--cat-politics);">Politics</strong></td>
+          <td style="text-align: right; font-family: var(--font-mono);">4,029</td>
+          <td style="text-align: right; font-family: var(--font-mono);">28.53%</td>
+          <td style="text-align: right; font-family: var(--font-mono);">3,223</td>
+          <td style="text-align: right; font-family: var(--font-mono);">806</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--cat-sports);">Sports</strong></td>
+          <td style="text-align: right; font-family: var(--font-mono);">1,679</td>
+          <td style="text-align: right; font-family: var(--font-mono);">11.89%</td>
+          <td style="text-align: right; font-family: var(--font-mono);">1,343</td>
+          <td style="text-align: right; font-family: var(--font-mono);">336</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--cat-entertainment);">Entertainment</strong></td>
+          <td style="text-align: right; font-family: var(--font-mono);">1,418</td>
+          <td style="text-align: right; font-family: var(--font-mono);">10.04%</td>
+          <td style="text-align: right; font-family: var(--font-mono);">1,134</td>
+          <td style="text-align: right; font-family: var(--font-mono);">284</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--cat-business);">Business</strong></td>
+          <td style="text-align: right; font-family: var(--font-mono);">696</td>
+          <td style="text-align: right; font-family: var(--font-mono);">4.93%</td>
+          <td style="text-align: right; font-family: var(--font-mono);">557</td>
+          <td style="text-align: right; font-family: var(--font-mono);">139</td>
+        </tr>
+        <tr class="row-total" style="background:#EEF2FF; font-weight:800; color:var(--primary-deep);">
+          <td><strong>Total</strong></td>
+          <td style="text-align: right; font-family: var(--font-mono);"><strong>14,123</strong></td>
+          <td style="text-align: right; font-family: var(--font-mono);"><strong>100.00%</strong></td>
+          <td style="text-align: right; font-family: var(--font-mono);"><strong>11,298</strong></td>
+          <td style="text-align: right; font-family: var(--font-mono);"><strong>2,825</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- INTERACTIVE CATEGORY EXPLORER WITH 5 CATEGORY TABS -->
+<section class="metric-strip-card" style="padding: 2.25rem;">
+  <div style="margin-bottom: 1.5rem;">
+    <div class="chapter-badge">Interactive Inspector</div>
+    <h2 style="font-size:1.35rem; font-weight:900; color:var(--primary-deep); margin-bottom:0.35rem;">
+      Explore Category Corpus
+    </h2>
+    <p style="font-size:0.9rem; color:var(--text-muted);">
+      Select any category to view volume metrics, average headline word lengths, and 5 authentic dataset samples.
+    </p>
+  </div>
+
+  <!-- Category Tabs -->
+  <div class="dataset-tabs-row" id="dataset-category-tabs">
+    <button class="dataset-tab-btn active" data-cat="Technology & Science">
+      Technology & Science
+    </button>
+    <button class="dataset-tab-btn" data-cat="Politics">
+      Politics
+    </button>
+    <button class="dataset-tab-btn" data-cat="Business">
+      Business
+    </button>
+    <button class="dataset-tab-btn" data-cat="Sports">
+      Sports
+    </button>
+    <button class="dataset-tab-btn" data-cat="Entertainment">
+      Entertainment
+    </button>
+  </div>
+
+  <!-- Dynamic Content Card -->
+  <div id="explorer-card" style="background:#F8FAFC; border:1px solid var(--border-light); border-radius:var(--radius-xl); padding:1.75rem;">
+    <!-- Insights Row -->
+    <div style="display:flex; gap:1.25rem; flex-wrap:wrap; margin-bottom:1.5rem;">
+      <div class="analysis-strip-item" style="background:#FFFFFF; padding:0.5rem 1rem; border-radius:var(--radius-md); border:1px solid var(--border-light);">
+        <span style="color:var(--text-muted); font-size:0.8rem; font-weight:700;">Category:</span>
+        <strong id="explorer-title" style="color:var(--primary-deep); font-size:0.95rem;">Technology & Science</strong>
+      </div>
+      <div class="analysis-strip-item" style="background:#FFFFFF; padding:0.5rem 1rem; border-radius:var(--radius-md); border:1px solid var(--border-light);">
+        <span style="color:var(--text-muted); font-size:0.8rem; font-weight:700;">Records:</span>
+        <strong id="explorer-count" style="color:var(--primary-deep); font-size:0.95rem;">6,301</strong>
+      </div>
+      <div class="analysis-strip-item" style="background:#FFFFFF; padding:0.5rem 1rem; border-radius:var(--radius-md); border:1px solid var(--border-light);">
+        <span style="color:var(--text-muted); font-size:0.8rem; font-weight:700;">Corpus Share:</span>
+        <strong id="explorer-pct" style="color:var(--primary-deep); font-size:0.95rem;">44.62%</strong>
+      </div>
+      <div class="analysis-strip-item" style="background:#FFFFFF; padding:0.5rem 1rem; border-radius:var(--radius-md); border:1px solid var(--border-light);">
+        <span style="color:var(--text-muted); font-size:0.8rem; font-weight:700;">Avg Headline Length:</span>
+        <strong id="explorer-len" style="color:var(--primary-deep); font-size:0.95rem;">12.7 words</strong>
+      </div>
+    </div>
+
+    <!-- Visual Corpus Share Progress Bar -->
+    <div style="margin-bottom:1.75rem;">
+      <div style="font-size:0.75rem; font-weight:800; text-transform:uppercase; color:var(--text-muted); margin-bottom:0.4rem; letter-spacing:0.06em;">
+        Corpus Volume Share
+      </div>
+      <div class="contrast-bar-track">
+        <div id="explorer-share-bar" class="contrast-bar-fill fill-tech" style="width: 44.62%;"></div>
+      </div>
+    </div>
+
+    <!-- 5 Real Headline Sample Cards -->
+    <div style="font-size:0.95rem; font-weight:800; color:var(--primary-deep); margin-bottom:0.75rem;">
+      Authentic Corpus Headlines (5 Real Samples):
+    </div>
+    <div id="explorer-examples-list" style="display:flex; flex-direction:column; gap:0.75rem;">
+      <!-- Populated via JavaScript dynamically -->
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}About the Project{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section style="margin-bottom: 2.5rem;">
+  <div class="chapter-badge">Academic Overview &bull; NLP System</div>
+  <h1 class="hero-headline" style="font-size: 2.6rem; margin-bottom: 0.5rem;">
+    About the <span class="gradient-text">Project</span>
+  </h1>
+  <p class="hero-subhead" style="max-width: 720px;">
+    An NLP-based machine learning system for classifying Marathi news headlines into five categories, engineered for 100% offline local execution on a standard student laptop.
+  </p>
+</section>
+
+<!-- Visual Chapter Sections -->
+<div style="display:flex; flex-direction:column; gap:2rem;">
+  <!-- Section 1: Problem & Objective -->
+  <section class="metric-strip-card" style="padding: 2.25rem;">
+    <div class="chapter-badge">Problem Statement &amp; Objective</div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:1.75rem; margin-top:1rem;">
+      <div style="background:#F8FAFC; border:1px solid var(--border-light); border-radius:var(--radius-lg); padding:1.25rem;">
+        <h3 style="font-size:1rem; font-weight:800; color:var(--primary-deep); margin-bottom:0.4rem;">The Challenge</h3>
+        <p style="font-size:0.9rem; color:var(--text-main); line-height:1.6;">
+          Marathi news headlines exhibit high code-mixing with English loanwords, technical terminology, complex Devanagari inflections, and skewed class distributions. Standard tokenizers frequently mutilate Devanagari matras, degrading downstream model accuracy.
+        </p>
+      </div>
+
+      <div style="background:#F8FAFC; border:1px solid var(--border-light); border-radius:var(--radius-lg); padding:1.25rem;">
+        <h3 style="font-size:1rem; font-weight:800; color:var(--primary-deep); margin-bottom:0.4rem;">Project Goal</h3>
+        <p style="font-size:0.9rem; color:var(--text-main); line-height:1.6;">
+          Build a standalone, local NLP pipeline that accepts any Marathi news headline and predicts exactly one of five discrete categories with high precision, probability distributions, and transparent term-level explainability.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Methodology & Model Architecture -->
+  <section class="metric-strip-card" style="padding: 2.25rem;">
+    <div class="chapter-badge">Methodology &amp; Architecture</div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:1.25rem; margin-top:1rem;">
+      <div style="background:#F8FAFC; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1.15rem;">
+        <div style="font-size:0.75rem; font-weight:800; color:var(--primary); text-transform:uppercase; margin-bottom:0.25rem;">Step 1</div>
+        <div style="font-weight:800; font-size:0.95rem; color:var(--primary-deep);">Unicode Normalization</div>
+        <div style="font-size:0.82rem; color:var(--text-muted); margin-top:0.35rem;">
+          NFC normalization, quotation mark standardization, Latin-script lowercasing, while retaining all Marathi inflectional suffixes.
+        </div>
+      </div>
+
+      <div style="background:#F8FAFC; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1.15rem;">
+        <div style="font-size:0.75rem; font-weight:800; color:var(--primary); text-transform:uppercase; margin-bottom:0.25rem;">Step 2</div>
+        <div style="font-weight:800; font-size:0.95rem; color:var(--primary-deep);">Devanagari Regex Tokenizer</div>
+        <div style="font-size:0.82rem; color:var(--text-muted); margin-top:0.35rem;">
+          Custom pattern <code>[\u0900-\u097F\w]+</code> preventing scikit-learn's default matra-splitting bug on Devanagari vowel signs.
+        </div>
+      </div>
+
+      <div style="background:#F8FAFC; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1.15rem;">
+        <div style="font-size:0.75rem; font-weight:800; color:var(--primary); text-transform:uppercase; margin-bottom:0.25rem;">Step 3</div>
+        <div style="font-weight:800; font-size:0.95rem; color:var(--primary-deep);">Sublinear TF-IDF (1, 2)</div>
+        <div style="font-size:0.82rem; color:var(--text-muted); margin-top:0.35rem;">
+          Unigram plus bigram representations (min_df=2, 29,455 features) with logarithmic sublinear term frequency scaling.
+        </div>
+      </div>
+
+      <div style="background:#F8FAFC; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1.15rem;">
+        <div style="font-size:0.75rem; font-weight:800; color:var(--primary); text-transform:uppercase; margin-bottom:0.25rem;">Step 4</div>
+        <div style="font-weight:800; font-size:0.95rem; color:var(--primary-deep);">Balanced Logistic Regression</div>
+        <div style="font-size:0.82rem; color:var(--text-muted); margin-top:0.35rem;">
+          Multiclass linear classifier with inverse class frequency weights, producing calibrated probability distributions.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Technology Stack & Local Guarantees -->
+  <section class="metric-strip-card" style="padding: 2.25rem;">
+    <div class="chapter-badge">Technology Stack &amp; Privacy</div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1rem; margin-top:1rem;">
+      <div style="background:#FFFFFF; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1rem;">
+        <div style="font-weight:800; color:var(--primary-deep);">Python 3.12+</div>
+        <div style="font-size:0.8rem; color:var(--text-muted); margin-top:0.2rem;">Core language runtime</div>
+      </div>
+      <div style="background:#FFFFFF; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1rem;">
+        <div style="font-weight:800; color:var(--primary-deep);">Scikit-learn</div>
+        <div style="font-size:0.8rem; color:var(--text-muted); margin-top:0.2rem;">Feature extraction & modeling</div>
+      </div>
+      <div style="background:#FFFFFF; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1rem;">
+        <div style="font-weight:800; color:var(--primary-deep);">Pandas &amp; NumPy</div>
+        <div style="font-size:0.8rem; color:var(--text-muted); margin-top:0.2rem;">Data manipulation & metrics</div>
+      </div>
+      <div style="background:#FFFFFF; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:1rem;">
+        <div style="font-weight:800; color:var(--primary-deep);">Flask &amp; Vanilla JS</div>
+        <div style="font-size:0.8rem; color:var(--text-muted); margin-top:0.2rem;">WSGI server & dynamic client UI</div>
+      </div>
+    </div>
+
+    <!-- Integrity Guarantee Banner -->
+    <div style="background:#ECFDF5; border:1.5px solid #A7F3D0; border-radius:var(--radius-lg); padding:1.25rem 1.5rem; margin-top:1.5rem;">
+      <h3 style="font-size:0.95rem; font-weight:800; color:#065F46; margin-bottom:0.35rem;">
+        100% Local Inference &amp; Academic Integrity Guarantees
+      </h3>
+      <ul style="padding-left:1.25rem; font-size:0.88rem; color:#047857; line-height:1.6;">
+        <li><strong>No Cloud APIs:</strong> Zero reliance on OpenAI, Google Gemini, Anthropic Claude, or cloud inference servers.</li>
+        <li><strong>Offline Execution:</strong> Model artifacts total less than 3 MB and execute locally on CPU in sub-millisecond latency.</li>
+        <li><strong>Reproducible Benchmark:</strong> Stratified 80/20 train/test split with deterministic random seeds (random_state=42).</li>
+      </ul>
+    </div>
+  </section>
+</div>
+{% endblock %}

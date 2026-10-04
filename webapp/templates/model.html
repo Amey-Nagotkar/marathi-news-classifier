@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+
+{% block title %}Model Performance & Architecture{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section style="margin-bottom: 2.5rem;">
+  <div class="chapter-badge">ML Architecture &bull; Comparative Benchmark</div>
+  <h1 class="hero-headline" style="font-size: 2.6rem; margin-bottom: 0.5rem;">
+    Model Performance &amp; <span class="gradient-text">Architecture</span>
+  </h1>
+  <p class="hero-subhead" style="max-width: 720px;">
+    Rigorous evaluation benchmark on 2,825 held-out records and production deployment specifications trained on 14,123 verified Marathi headlines.
+  </p>
+</section>
+
+<!-- KPI Metrics Strip -->
+<section class="metric-strip-card" style="margin-bottom: 2.5rem;">
+  <div class="metric-strip-grid">
+    <div class="metric-strip-item">
+      <div class="metric-strip-value">89.84%</div>
+      <div class="metric-strip-label">Evaluation Accuracy</div>
+      <div class="metric-strip-sub">2,825 Held-out Test Records</div>
+    </div>
+    <div class="metric-strip-item">
+      <div class="metric-strip-value">86.75%</div>
+      <div class="metric-strip-label">Macro F1-Score</div>
+      <div class="metric-strip-sub">Balanced Across All 5 Classes</div>
+    </div>
+    <div class="metric-strip-item">
+      <div class="metric-strip-value">14,123</div>
+      <div class="metric-strip-label">Production Records</div>
+      <div class="metric-strip-sub">Retrained Corpus Volume</div>
+    </div>
+    <div class="metric-strip-item">
+      <div class="metric-strip-value">5</div>
+      <div class="metric-strip-label">Target Classes</div>
+      <div class="metric-strip-sub">Discrete Prediction Space</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH SPOTLIGHT: SELECTED FOR DEPLOYMENT -->
+<section class="research-spotlight-card">
+  <div class="spotlight-badge">Selected for Production Deployment</div>
+  <h2 class="spotlight-title">Balanced Logistic Regression</h2>
+  <p class="spotlight-desc">
+    Balanced Logistic Regression was selected because it provides strong classification performance, directly handles class imbalance through inverse class frequency weights, and natively exposes predict_proba(), which is essential for displaying model probabilities and feature explainability in the application.
+  </p>
+
+  <div class="spotlight-pill-grid">
+    <span class="spotlight-pill">Sublinear TF-IDF (1, 2)</span>
+    <span class="spotlight-pill">Devanagari Regex Tokenizer</span>
+    <span class="spotlight-pill">29,455 Feature Dimensions</span>
+    <span class="spotlight-pill">class_weight='balanced'</span>
+    <span class="spotlight-pill">Softmax Probability Output</span>
+    <span class="spotlight-pill">100% Local Inference</span>
+  </div>
+</section>
+
+<!-- COMPARATIVE MODEL BENCHMARK BARS -->
+<section class="metric-strip-card" style="padding: 2.25rem; margin-bottom: 2.5rem;">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+    <h2 style="font-size:1.35rem; font-weight:900; color:var(--primary-deep);">
+      Model Benchmark Comparison
+    </h2>
+    <span class="chapter-badge" style="margin:0;">2,825 Test Records</span>
+  </div>
+  <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1.75rem;">
+    Objective experimental comparison across all 5 candidate models evaluated on the identical 20% stratified test split.
+  </p>
+
+  <!-- Visual Benchmark Comparison Bars -->
+  <div style="display:flex; flex-direction:column; gap:1.1rem; margin-bottom:2rem;">
+    <div class="contrast-bar-row">
+      <div class="contrast-bar-meta">
+        <span>Multinomial Naive Bayes</span>
+        <span style="font-family:var(--font-mono);">85.66% Accuracy</span>
+      </div>
+      <div class="contrast-bar-track">
+        <div class="contrast-bar-fill" style="width: 85.66%; background: #94A3B8;"></div>
+      </div>
+    </div>
+
+    <div class="contrast-bar-row">
+      <div class="contrast-bar-meta">
+        <span>Logistic Regression (Default)</span>
+        <span style="font-family:var(--font-mono);">88.64% Accuracy</span>
+      </div>
+      <div class="contrast-bar-track">
+        <div class="contrast-bar-fill" style="width: 88.64%; background: #64748B;"></div>
+      </div>
+    </div>
+
+    <!-- Selected Model Spotlight Bar -->
+    <div class="contrast-bar-row" style="background:#EEF2FF; border:1.5px solid #C7D2FE;">
+      <div class="contrast-bar-meta">
+        <span style="color:var(--primary); font-weight:900;">
+          Balanced Logistic Regression (SELECTED FOR DEPLOYMENT)
+        </span>
+        <span style="color:var(--primary); font-weight:900; font-family:var(--font-mono);">89.84% Accuracy</span>
+      </div>
+      <div class="contrast-bar-track">
+        <div class="contrast-bar-fill fill-tech" style="width: 89.84%; background:var(--primary);"></div>
+      </div>
+    </div>
+
+    <div class="contrast-bar-row">
+      <div class="contrast-bar-meta">
+        <span>Linear SVM (Default)</span>
+        <span style="font-family:var(--font-mono);">91.33% Accuracy</span>
+      </div>
+      <div class="contrast-bar-track">
+        <div class="contrast-bar-fill" style="width: 91.33%; background: #94A3B8;"></div>
+      </div>
+    </div>
+
+    <div class="contrast-bar-row">
+      <div class="contrast-bar-meta">
+        <span>Linear SVM (Balanced)</span>
+        <span style="font-family:var(--font-mono);">91.68% Accuracy</span>
+      </div>
+      <div class="contrast-bar-track">
+        <div class="contrast-bar-fill" style="width: 91.68%; background: #94A3B8;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed Benchmark Table -->
+  <div class="table-responsive">
+    <table class="prob-table model-comparison-table">
+      <thead>
+        <tr>
+          <th style="min-width: 240px; text-align: left;">Model Architecture</th>
+          <th style="min-width: 95px; text-align: right;">Accuracy</th>
+          <th style="min-width: 95px; text-align: right;">Macro F1</th>
+          <th style="min-width: 105px; text-align: right;">Weighted F1</th>
+          <th style="min-width: 170px; text-align: center;">Supports predict_proba()</th>
+          <th style="min-width: 110px; text-align: center;">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Multinomial Naive Bayes</td>
+          <td style="text-align: right; font-family: var(--font-mono);">85.66%</td>
+          <td style="text-align: right; font-family: var(--font-mono);">72.80%</td>
+          <td style="text-align: right; font-family: var(--font-mono);">84.70%</td>
+          <td style="text-align: center;">Yes</td>
+          <td style="text-align: center;"><span class="badge-status badge-status-base">Baseline</span></td>
+        </tr>
+        <tr>
+          <td>Logistic Regression (Default)</td>
+          <td style="text-align: right; font-family: var(--font-mono);">88.64%</td>
+          <td style="text-align: right; font-family: var(--font-mono);">82.34%</td>
+          <td style="text-align: right; font-family: var(--font-mono);">88.24%</td>
+          <td style="text-align: center;">Yes</td>
+          <td style="text-align: center;"><span class="badge-status badge-status-eval">Evaluated</span></td>
+        </tr>
+        <tr class="row-selected" style="background:#EEF2FF; font-weight:800;">
+          <td>
+            <strong style="color:var(--primary-deep);">Balanced Logistic Regression</strong>
+            <span class="badge-selected">SELECTED</span>
+          </td>
+          <td style="text-align: right; font-family: var(--font-mono);"><strong>89.84%</strong></td>
+          <td style="text-align: right; font-family: var(--font-mono);"><strong>86.75%</strong></td>
+          <td style="text-align: right; font-family: var(--font-mono);"><strong>89.84%</strong></td>
+          <td style="text-align: center;"><strong>Yes</strong></td>
+          <td style="text-align: center;"><span class="badge-status badge-status-prod">Production</span></td>
+        </tr>
+        <tr>
+          <td>Linear SVM (Default)</td>
+          <td style="text-align: right; font-family: var(--font-mono);">91.33%</td>
+          <td style="text-align: right; font-family: var(--font-mono);">88.71%</td>
+          <td style="text-align: right; font-family: var(--font-mono);">91.30%</td>
+          <td style="text-align: center;">No (Hinge Loss)</td>
+          <td style="text-align: center;"><span class="badge-status badge-status-eval">Evaluated</span></td>
+        </tr>
+        <tr>
+          <td>Linear SVM (Balanced)</td>
+          <td style="text-align: right; font-family: var(--font-mono);">91.68%</td>
+          <td style="text-align: right; font-family: var(--font-mono);">88.96%</td>
+          <td style="text-align: right; font-family: var(--font-mono);">91.70%</td>
+          <td style="text-align: center;">No (Hinge Loss)</td>
+          <td style="text-align: center;"><span class="badge-status badge-status-eval">Evaluated</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Why Balanced Logistic Regression Note -->
+  <div class="model-selection-note">
+    <div class="note-title">Why Balanced Logistic Regression?</div>
+    <p class="note-body">
+      Linear SVM achieved slightly higher accuracy (91.68%) than Balanced Logistic Regression (89.84%). However, Balanced Logistic Regression was selected as the final model because it provides strong performance while supporting <code>predict_proba()</code>, which allows the application to display model probability estimates for each category. It also provides a simpler and more interpretable probability-based interface for this project.
+    </p>
+  </div>
+</section>
+
+<!-- CONFUSION MATRIX SECTION -->
+<section class="metric-strip-card" style="padding: 2.25rem;">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+    <h2 style="font-size:1.35rem; font-weight:900; color:var(--primary-deep);">
+      Confusion Matrix Analysis
+    </h2>
+    <span class="chapter-badge" style="margin:0;">Held-out Test Evaluation</span>
+  </div>
+  <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1.5rem;">
+    The confusion matrix displays classification accuracy across each of the 5 categories on the held-out test partition.
+  </p>
+
+  <div style="text-align:center;">
+    <img 
+      src="{{ url_for('static', filename='assets/confusion_matrix.png') }}" 
+      alt="Balanced Logistic Regression Confusion Matrix" 
+      class="matrix-img"
+      style="max-width: 620px;"
+    >
+  </div>
+
+  <!-- Technical Explanation Box -->
+  <div style="background:#F8FAFC; border:1px solid var(--border-light); border-radius:var(--radius-lg); padding:1.25rem 1.5rem; margin-top:1.5rem;">
+    <h3 style="font-size:0.95rem; font-weight:800; color:var(--primary-deep); margin-bottom:0.4rem;">
+      What does this matrix demonstrate?
+    </h3>
+    <ul style="padding-left:1.25rem; font-size:0.88rem; color:var(--text-main); line-height:1.6;">
+      <li><strong>Diagonal Dominance:</strong> Large diagonal values confirm high precision across all 5 classes (Technology: 91.57% F1, Sports: 92.10% F1, Politics: 89.85% F1).</li>
+      <li><strong>Minority Class Recall:</strong> In the minority Business class (696 total records), class weighting boosted test recall from 38.85% up to 71.22%.</li>
+      <li><strong>Cross-Topic Overlap:</strong> Off-diagonal entries show expected semantic proximity between Business and Technology/Auto infrastructure headlines.</li>
+    </ul>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,388 @@
+{% extends "base.html" %}
+
+{% block title %}Home | Headline Classifier{% endblock %}
+
+{% block content %}
+<!-- TWO-COLUMN HERO SECTION -->
+<section class="hero-two-col">
+  <!-- Left Column: Typography & Action -->
+  <div class="hero-content">
+    <div class="hero-eyebrow">Marathi NLP &bull; Text Classification</div>
+    <h1 class="hero-headline">
+      Marathi News<br>
+      <span class="gradient-text">Classifier</span>
+    </h1>
+    <p class="hero-subhead">
+      An NLP-based machine learning system for classifying Marathi news headlines into five categories using sublinear TF-IDF and Balanced Logistic Regression.
+    </p>
+    <div class="hero-actions">
+      <a href="#classifier-workspace" class="btn-electric" style="text-decoration:none;">
+        Start Classifying
+      </a>
+      <a href="{{ url_for('model_page') }}" class="btn-dark-secondary" style="color:var(--text-main); border-color:var(--border-medium); text-decoration:none;">
+        Explore Model
+      </a>
+    </div>
+  </div>
+
+  <!-- Right Column: Interactive Visual NLP Illustration (Pure HTML/CSS/SVG) -->
+  <div class="nlp-intel-panel">
+    <div class="intel-panel-header">
+      <span class="intel-tag">Text Intelligence Pipeline</span>
+      <span class="intel-live-indicator">
+        <span class="live-dot"></span> Live Representation
+      </span>
+    </div>
+
+    <!-- Raw Input Sample -->
+    <div class="intel-raw-box">
+      "भारताने अंतिम सामन्यात विजय मिळवला"
+    </div>
+
+    <div class="intel-flow-arrow">&darr;</div>
+
+    <!-- Token Stream -->
+    <div class="token-stream-container">
+      <span class="token-chip">भारताने</span>
+      <span class="token-chip">अंतिम</span>
+      <span class="token-chip">सामन्यात</span>
+      <span class="token-chip">विजय</span>
+      <span class="token-chip">मिळवला</span>
+    </div>
+
+    <div class="intel-flow-arrow">&darr;</div>
+
+    <!-- Feature Vector Signal Indicator -->
+    <div class="vector-signal-bar">
+      <span>TF-IDF Feature Space</span>
+      <span class="vector-signal-val">29,455 Dimensions</span>
+    </div>
+
+    <div class="intel-flow-arrow">&darr;</div>
+
+    <!-- 5 Category Probability Nodes -->
+    <div class="category-nodes-grid">
+      <div class="cat-node">
+        <span class="node-name">Tech</span>
+        <span class="node-score">12.8%</span>
+      </div>
+      <div class="cat-node">
+        <span class="node-name">Politics</span>
+        <span class="node-score">21.7%</span>
+      </div>
+      <div class="cat-node">
+        <span class="node-name">Business</span>
+        <span class="node-score">4.6%</span>
+      </div>
+      <div class="cat-node winner">
+        <span class="node-name">Sports</span>
+        <span class="node-score">52.9%</span>
+      </div>
+      <div class="cat-node">
+        <span class="node-name">Entertain</span>
+        <span class="node-score">8.0%</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTEGRATED HORIZONTAL METRIC STRIP -->
+<section class="metric-strip-card">
+  <div class="metric-strip-grid">
+    <div class="metric-strip-item">
+      <div class="metric-strip-value">14,123</div>
+      <div class="metric-strip-label">Headlines</div>
+      <div class="metric-strip-sub">Master Dataset Volume</div>
+    </div>
+    <div class="metric-strip-item">
+      <div class="metric-strip-value">5</div>
+      <div class="metric-strip-label">Categories</div>
+      <div class="metric-strip-sub">Target Prediction Space</div>
+    </div>
+    <div class="metric-strip-item">
+      <div class="metric-strip-value">89.84%</div>
+      <div class="metric-strip-label">Test Accuracy</div>
+      <div class="metric-strip-sub">2,825 Held-out Records</div>
+    </div>
+    <div class="metric-strip-item">
+      <div class="metric-strip-value">100%</div>
+      <div class="metric-strip-label">Local Inference</div>
+      <div class="metric-strip-sub">Zero Cloud Dependencies</div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 01: THE MAIN CLASSIFIER WORKSPACE (HERO PIECE) -->
+<section id="classifier-workspace" class="classifier-workspace">
+  <div class="workspace-header">
+    <div class="workspace-eyebrow">Chapter 01 &bull; Inference Engine</div>
+    <h2 class="workspace-title">Classify a Marathi News Headline</h2>
+    <p class="workspace-description">
+      Enter any Marathi news headline to run inference through our sublinear TF-IDF and Balanced Logistic Regression pipeline.
+    </p>
+  </div>
+
+  <!-- Text Editor Surface -->
+  <div class="editor-wrapper">
+    <textarea 
+      id="headline-input" 
+      class="workspace-textarea" 
+      placeholder="Enter Marathi news headline... उदाहरण: भारताने अंतिम सामन्यात विजय मिळवला"
+      rows="4"
+    ></textarea>
+  </div>
+
+  <!-- Compact Live Headline Analysis Strip -->
+  <div class="analysis-strip">
+    <div class="analysis-strip-item">
+      <span>Words:</span>
+      <strong id="stat-words">0</strong>
+    </div>
+    <div class="analysis-strip-item">
+      <span>Characters:</span>
+      <strong id="stat-chars">0</strong>
+    </div>
+    <div class="analysis-strip-item">
+      <span>Devanagari:</span>
+      <strong id="stat-devanagari">0%</strong>
+    </div>
+    <div class="analysis-strip-item">
+      <span>Latin:</span>
+      <strong id="stat-latin">0%</strong>
+    </div>
+    <div class="analysis-strip-item">
+      <span>Digits:</span>
+      <strong id="stat-digits">0</strong>
+    </div>
+  </div>
+
+  <!-- Action Row -->
+  <div class="workspace-actions">
+    <button id="btn-classify" class="btn-electric">
+      Classify Headline
+    </button>
+    <button id="btn-random-quick" class="btn-dark-secondary">
+      Random Headline
+    </button>
+    <button id="btn-clear" class="btn-ghost-clear">
+      Clear
+    </button>
+  </div>
+
+  <!-- Quick Examples (Category Chips Inheriting Category Colors) -->
+  <div class="quick-chip-group">
+    <span class="quick-chip-label">Quick Examples:</span>
+    <button class="category-chip-btn chip-sports sample-chip" data-sample="भारताने अंतिम सामन्यात विजय मिळवला">
+      Sports Sample
+    </button>
+    <button class="category-chip-btn chip-tech sample-chip" data-sample="नवीन 5G स्मार्टफोन भारतात लाँच, किंमत फक्त...">
+      Technology Sample
+    </button>
+    <button class="category-chip-btn chip-politics sample-chip" data-sample="मुख्यमंत्री एकनाथ शिंदे यांच्या उपस्थितीत बैठक">
+      Politics Sample
+    </button>
+  </div>
+
+  <!-- Discover Dataset Control -->
+  <div class="discover-dataset-row">
+    <div class="discover-dataset-info">
+      <span class="discover-title">Discover the Dataset</span>
+      <span class="dataset-source-tag">Dataset Sample</span>
+    </div>
+    <div class="discover-controls">
+      <select id="random-category-select" class="dark-select">
+        <option value="all">All Categories</option>
+        <option value="Technology & Science">Technology & Science</option>
+        <option value="Politics">Politics</option>
+        <option value="Business">Business</option>
+        <option value="Sports">Sports</option>
+        <option value="Entertainment">Entertainment</option>
+      </select>
+      <button id="btn-random-load" class="btn-dark-secondary" style="padding:0.45rem 1rem; font-size:0.85rem;">
+        Load Dataset Headline
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading State Banner -->
+  <div id="loading-box" class="loading-box">
+    <div class="spinner"></div>
+    <div class="loading-text" style="font-weight: 800; color: var(--accent-electric);">
+      Evaluating headline through feature pipeline...
+    </div>
+  </div>
+
+  <!-- Error Banner -->
+  <div id="error-banner" class="error-banner"></div>
+</section>
+
+<!-- CHAPTER 02: PREDICTION REVEAL SECTION ("THE DEMO MOMENT") -->
+<section id="result-section" class="prediction-reveal-section">
+  <div class="chapter-badge">Chapter 02 &bull; Classification Result</div>
+  
+  <div class="prediction-hero-card">
+    <div id="prediction-accent-line" class="prediction-accent-line fill-sports"></div>
+    
+    <div class="prediction-headline-quote" id="res-headline">
+      ""
+    </div>
+
+    <!-- Focal Point: Predicted Category & Model Probability -->
+    <div class="reveal-main-grid">
+      <div class="reveal-category-group">
+        <span class="reveal-eyebrow">Predicted Category</span>
+        <span id="res-category-name" class="reveal-category-name" style="color:var(--cat-sports);">
+          Sports
+        </span>
+      </div>
+
+      <div class="reveal-prob-group">
+        <div class="reveal-prob-label">Model Probability</div>
+        <div class="reveal-prob-number" id="res-probability">0.00%</div>
+      </div>
+    </div>
+
+    <div class="explain-academic-disclaimer" style="margin-bottom:1.5rem;">
+      Model probability indicates the probability assigned by the trained classifier and should not be interpreted as absolute certainty.
+    </div>
+
+    <!-- DUAL PROBABILITY VISUALIZATION: SVG DONUT + HORIZONTAL BARS -->
+    <div class="prob-dual-layout">
+      <!-- Left: Interactive Pure SVG Donut Chart -->
+      <div class="donut-wrapper">
+        <div class="donut-svg-box">
+          <svg id="donut-svg" width="200" height="200" viewBox="0 0 200 200">
+            <!-- Arcs populated dynamically by app.js -->
+          </svg>
+          <div class="donut-center-text">
+            <span id="donut-center-pct" class="donut-center-pct">0%</span>
+            <span id="donut-center-label" class="donut-center-label">Top Class</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: High-Contrast Horizontal Probability Bars (All 5 Categories) -->
+      <div class="horizontal-bars-column">
+        <div style="font-size:0.85rem; font-weight:800; text-transform:uppercase; color:var(--text-muted); letter-spacing:0.06em; margin-bottom:0.25rem;">
+          Full Probability Distribution
+        </div>
+        <div id="dist-container" style="display:flex; flex-direction:column; gap:0.65rem;">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <!-- TOP 3 PREDICTIONS (Visual Hierarchy) -->
+    <div style="margin-top:2rem;">
+      <div style="font-size:0.85rem; font-weight:800; text-transform:uppercase; color:var(--text-muted); letter-spacing:0.06em; margin-bottom:0.75rem;">
+        Top Predictions Ranking
+      </div>
+      <div id="top3-hierarchy-list" class="top3-hierarchy-grid">
+        <!-- Rendered dynamically: Rank #1 Dominates -->
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 03: WHY DID THE MODEL CHOOSE THIS? (EXPLAINABILITY SHOWPIECE) -->
+  <div class="explainability-showpiece" id="explain-container">
+    <div class="chapter-badge">Chapter 03 &bull; Explainability</div>
+    <div class="explain-showpiece-header">
+      <h3 class="explain-showpiece-title">Why Did The Model Choose This?</h3>
+      <span id="explain-category-tag" class="category-pill-lg theme-sports" style="font-size:0.85rem; padding:0.25rem 0.85rem;">
+        Sports
+      </span>
+    </div>
+    <p class="explain-showpiece-sub">
+      Feature-level interpretation showing which observed terms had the strongest positive contribution to the predicted class score.
+    </p>
+
+    <!-- Contribution Bars List -->
+    <div id="explain-terms-list" class="contrib-bars-list">
+      <!-- Populated dynamically via JavaScript -->
+    </div>
+
+    <div class="explain-academic-disclaimer" id="explain-disclaimer">
+      These observed terms had the strongest positive contribution to the predicted class score.
+    </div>
+  </div>
+
+  <!-- CHAPTER 04: INTERACTIVE NLP CLASSIFICATION PIPELINE -->
+  <div class="pipeline-showpiece">
+    <div class="chapter-badge">Chapter 04 &bull; Architecture Flow</div>
+    <h3 style="font-size:1.25rem; font-weight:900; color:var(--primary-deep); margin-bottom:0.4rem;">
+      NLP Classification Pipeline
+    </h3>
+    <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1rem;">
+      Click any stage to inspect the technical parameters used during evaluation and production inference.
+    </p>
+
+    <div class="pipeline-interactive-diagram">
+      <div class="pipeline-node-card" id="stage-input" data-stage="input">
+        <div class="node-step-badge">[ 01 ]</div>
+        <div class="node-step-heading">Raw Text</div>
+        <div class="node-step-sub">User Marathi String</div>
+      </div>
+      
+      <div class="pipeline-node-connector">&rarr;</div>
+
+      <div class="pipeline-node-card" id="stage-preprocess" data-stage="preprocess">
+        <div class="node-step-badge">[ 02 ]</div>
+        <div class="node-step-heading">Preprocessing</div>
+        <div class="node-step-sub">NFC & Normalization</div>
+      </div>
+
+      <div class="pipeline-node-connector">&rarr;</div>
+
+      <div class="pipeline-node-card" id="stage-tfidf" data-stage="tfidf">
+        <div class="node-step-badge">[ 03 ]</div>
+        <div class="node-step-heading">TF-IDF</div>
+        <div class="node-step-sub">29,455 Features</div>
+      </div>
+
+      <div class="pipeline-node-connector">&rarr;</div>
+
+      <div class="pipeline-node-card" id="stage-classifier" data-stage="classifier">
+        <div class="node-step-badge">[ 04 ]</div>
+        <div class="node-step-heading">LogReg</div>
+        <div class="node-step-sub">Balanced Weights</div>
+      </div>
+
+      <div class="pipeline-node-connector">&rarr;</div>
+
+      <div class="pipeline-node-card" id="stage-prediction" data-stage="prediction">
+        <div class="node-step-badge">[ 05 ]</div>
+        <div class="node-step-heading">Prediction</div>
+        <div class="node-step-sub">Softmax Output</div>
+      </div>
+    </div>
+
+    <!-- Expandable Pipeline Technical Detail Modal -->
+    <div id="pipeline-detail-card" class="pipeline-detail-card">
+      <div id="pipeline-detail-title" class="detail-card-title">Stage Technical Details</div>
+      <div id="pipeline-detail-body" class="detail-card-body"></div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 05: SESSION PREDICTION TIMELINE -->
+  <div class="history-timeline-section">
+    <div class="chapter-badge">Chapter 05 &bull; Audit Trail</div>
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.75rem;">
+      <h3 style="font-size:1.25rem; font-weight:900; color:var(--primary-deep);">
+        Recent Predictions Timeline
+      </h3>
+      <div style="display:flex; gap:0.5rem;">
+        <button id="btn-download-csv" class="btn-dark-secondary" style="padding:0.4rem 0.85rem; font-size:0.82rem; color:var(--primary-deep); border-color:var(--border-medium);">
+          Download Result (CSV)
+        </button>
+        <button id="btn-clear-history" class="btn-ghost-clear" style="font-size:0.82rem;">
+          Clear History
+        </button>
+      </div>
+    </div>
+
+    <div id="timeline-container" class="timeline-cards-list">
+      <!-- Populated dynamically via JavaScript -->
+    </div>
+  </div>
+</section>
+{% endblock %}

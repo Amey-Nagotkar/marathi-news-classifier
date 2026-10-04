@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Marathi News Classifier{% endblock %} | NLP Research Laboratory</title>
+  <meta name="description" content="Professional NLP research application for classifying Marathi news headlines into five categories using TF-IDF and Balanced Logistic Regression.">
+  
+  <!-- Modern System Typography & Styles -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <!-- Ambient Blurred Canvas Background -->
+  <div class="ambient-canvas" aria-hidden="true">
+    <div class="ambient-glow glow-top-left"></div>
+    <div class="ambient-glow glow-top-right"></div>
+    <div class="ambient-glow glow-hero-center"></div>
+  </div>
+
+  <!-- Sticky Premium Navigation Bar -->
+  <header class="navbar" id="app-navbar">
+    <div class="nav-container">
+      <a href="{{ url_for('index') }}" class="nav-brand">
+        <div class="brand-monogram">M</div>
+        <div class="brand-text-group">
+          <span class="brand-title">Marathi News Classifier</span>
+          <span class="brand-badge">Local NLP System</span>
+        </div>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li class="nav-item {% if page == 'home' %}active{% endif %}">
+            <a href="{{ url_for('index') }}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('index') }}#classifier-workspace">Classify</a>
+          </li>
+          <li class="nav-item {% if page == 'dataset' %}active{% endif %}">
+            <a href="{{ url_for('dataset_page') }}">Dataset</a>
+          </li>
+          <li class="nav-item {% if page == 'model' %}active{% endif %}">
+            <a href="{{ url_for('model_page') }}">Model</a>
+          </li>
+          <li class="nav-item {% if page == 'about' %}active{% endif %}">
+            <a href="{{ url_for('about_page') }}">About</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="main-wrapper">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Application Logic -->
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

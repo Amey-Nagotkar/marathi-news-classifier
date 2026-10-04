@@ -1,0 +1,51 @@
+{
+    "project": "Marathi News Headline Classification System",
+    "model_architecture": "Logistic Regression with Balanced Class Weighting",
+    "vectorizer": "TfidfVectorizer (Sublinear TF, IDF, Unigram + Bigram)",
+    "token_pattern": "[\\u0900-\\u097F\\w]+",
+    "tfidf_ngram_range": [
+        1,
+        2
+    ],
+    "tfidf_min_df": 2,
+    "tfidf_max_df": 1.0,
+    "tfidf_sublinear_tf": true,
+    "tfidf_use_idf": true,
+    "tfidf_lowercase": false,
+    "classifier_hyperparameters": {
+        "max_iter": 2000,
+        "random_state": 42,
+        "class_weight": "balanced",
+        "solver": "lbfgs"
+    },
+    "classes": [
+        "Business",
+        "Entertainment",
+        "Politics",
+        "Sports",
+        "Technology & Science"
+    ],
+    "canonical_classes_order": [
+        "Technology & Science",
+        "Politics",
+        "Business",
+        "Sports",
+        "Entertainment"
+    ],
+    "production_training_samples": 14123,
+    "production_vocabulary_size": 29455,
+    "evaluation_benchmark": {
+        "test_sample_size": 2825,
+        "test_accuracy": 0.8984,
+        "test_macro_f1": 0.8675,
+        "test_weighted_f1": 0.8984,
+        "per_class_f1": {
+            "Technology & Science": 0.9157,
+            "Politics": 0.8985,
+            "Business": 0.72,
+            "Sports": 0.921,
+            "Entertainment": 0.8821
+        },
+        "business_recall": 0.7122
+    }
+}
